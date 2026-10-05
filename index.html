@@ -1,109 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Money Opportunity Hunter</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .big-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .big-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .opportunity-card {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .opportunity-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+            background: #f0f3ff;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .card-platform {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-requirement {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .card-details {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .detail-item {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .status-new {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-bid {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-won {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-lost {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .score-circle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 40px 20px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .summary {
+            background: #f0f3ff;
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .summary-item {
+            display: inline-block;
+            margin: 10px 20px;
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .summary-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .card-details {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
     <div class="container">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">AUTONOMOUS INCOME HUNTER</p>
-          <h1>Money Opportunity Hunter</h1>
-        </div>
-        <div class="status-pill">Best 10 first</div>
-      </header>
+        <h1>💰 Money Opportunity Hunter</h1>
+        <div class="subtitle">Find paid work that fits your skills</div>
 
-      <section class="cards" id="summaryCards"></section>
+        <div class="summary" id="summary"></div>
 
-      <section class="panel">
-        <h2>Add an opportunity</h2>
-        <form id="opportunityForm">
-          <div class="form-grid">
-            <label>
-              Project / Client
-              <input name="project_client" type="text" value="Local Business Expansion" required />
-            </label>
-            <label>
-              Platform / Source
-              <input name="platform" type="text" value="Upwork" required />
-            </label>
-            <label>
-              Expected payment (₹)
-              <input name="payment" type="number" value="35000" required />
-            </label>
-            <label>
-              Estimated days
-              <input name="estimated_days" type="number" value="7" required />
-            </label>
-            <label>
-              Deadline
-              <input name="deadline" type="text" value="Within 3 days" />
-            </label>
-            <label>
-              Status
-              <select name="status">
-                <option>NEW</option>
-                <option>BID</option>
-                <option>WON</option>
-                <option>LOST</option>
-              </select>
-            </label>
-            <label class="full-width">
-              Exact requirement
-              <textarea name="requirement" rows="3" required>Research 3 target markets, build territory map, identify buyer segments, and prepare commercial feasibility summary.</textarea>
-            </label>
-            <label class="full-width">
-              Why Deepak fits
-              <textarea name="why_fit" rows="2">Strong in market research, territory mapping, commercial feasibility, and opportunity intelligence.</textarea>
-            </label>
-            <label class="full-width">
-              Proposal / application URL
-              <input name="application_url" type="url" value="https://example.com" />
-            </label>
-          </div>
-          <div class="actions">
-            <button type="submit">Add to dashboard</button>
-            <button type="button" class="secondary" id="resetBtn">Reset sample data</button>
-          </div>
-        </form>
-      </section>
+        <div class="filter-buttons" id="filterButtons"></div>
 
-      <section class="panel">
-        <div class="toolbar">
-          <h2>Opportunity dashboard</h2>
-          <select id="statusFilter">
-            <option value="ALL">All statuses</option>
-            <option value="NEW">NEW</option>
-            <option value="BID">BID</option>
-            <option value="WON">WON</option>
-            <option value="LOST">LOST</option>
-          </select>
+        <button class="big-button" onclick="toggleAddForm()">+ ADD NEW OPPORTUNITY</button>
+
+        <div id="addForm" style="display: none; background: #f0f3ff; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+            <h3>Add a new opportunity</h3>
+            <input type="text" id="newClient" placeholder="Project / Client name" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px;">
+            <input type="text" id="newPlatform" placeholder="Platform (Upwork, Fiverr, LinkedIn, etc)" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px;">
+            <textarea id="newRequirement" placeholder="What's the project about?" rows="3" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-family: Arial;"></textarea>
+            <input type="number" id="newPayment" placeholder="Expected payment (₹)" value="25000" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px;">
+            <input type="number" id="newDays" placeholder="Estimated days" value="7" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px;">
+            <button class="big-button" onclick="addNewOpportunity()">Save Opportunity</button>
+            <button class="big-button" onclick="toggleAddForm()" style="background: #999;">Cancel</button>
         </div>
 
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Project / Client</th>
-                <th>Platform</th>
-                <th>Payment</th>
-                <th>Days</th>
-                <th>Fit</th>
-                <th>Status</th>
-                <th>Recommended Bid</th>
-                <th>Deadline</th>
-                <th>URL</th>
-              </tr>
-            </thead>
-            <tbody id="opportunityTable"></tbody>
-          </table>
-        </div>
-      </section>
+        <div id="opportunitiesList"></div>
     </div>
 
-    <script src="app.js"></script>
-  </body>
+    <script>
+        const sampleData = [
+            {
+                project_client: 'SME Exporter Expansion',
+                platform: 'LinkedIn Jobs',
+                requirement: 'Research 3 export markets, identify buyer segments, build territory map for B2B expansion',
+                payment: 45000,
+                estimated_days: 7,
+                status: 'NEW',
+            },
+            {
+                project_client: 'Sponsorship Growth',
+                platform: 'Upwork',
+                requirement: 'Create sponsorship prospect list, draft sponsor deck for a city event',
+                payment: 28000,
+                estimated_days: 5,
+                status: 'NEW',
+            },
+            {
+                project_client: 'Business Model Validation',
+                platform: 'Fiverr',
+                requirement: 'Review startup idea, build business model canvas, assess competitors and pricing',
+                payment: 22000,
+                estimated_days: 6,
+                status: 'BID',
+            },
+            {
+                project_client: 'Regional Vendor Research',
+                platform: 'Workana',
+                requirement: 'Compile vendor shortlist across 2 cities for packaging, print, transport services',
+                payment: 18000,
+                estimated_days: 4,
+                status: 'NEW',
+            },
+            {
+                project_client: 'Territory Expansion Study',
+                platform: 'PeoplePerHour',
+                requirement: 'Research 5 target territories, find customer density, competitor presence, pricing models',
+                payment: 30000,
+                estimated_days: 7,
+                status: 'NEW',
+            },
+        ];
+
+        let opportunities = JSON.parse(localStorage.getItem('opportunities')) || [...sampleData];
+        let currentFilter = 'ALL';
+
+        function scoreOpportunity(item) {
+            const text = (item.requirement || '').toLowerCase();
+            let score = 50;
+            if (text.includes('market') || text.includes('research')) score += 15;
+            if (text.includes('feasibility') || text.includes('business')) score += 15;
+            if (text.includes('territory') || text.includes('vendor')) score += 10;
+            if (text.includes('sponsorship')) score += 8;
+            if (item.estimated_days <= 5) score += 10;
+            if (item.payment >= 25000) score += 10;
+            return Math.min(100, score);
+        }
+
+        function saveOpportunities() {
+            localStorage.setItem('opportunities', JSON.stringify(opportunities));
+        }
+
+        function formatCurrency(value) {
+            return '₹' + Number(value).toLocaleString('en-IN');
+        }
+
+        function renderSummary() {
+            const total = opportunities.length;
+            const avgScore = opportunities.reduce((sum, item) => sum + scoreOpportunity(item), 0) / (total || 1);
+            const totalValue = opportunities.reduce((sum, item) => sum + item.payment, 0);
+
+            document.getElementById('summary').innerHTML = `
+                <div class="summary-item">
+                    <div class="summary-label">Total Opportunities</div>
+                    <div class="summary-value">${total}</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Average Fit</div>
+                    <div class="summary-value">${Math.round(avgScore)}</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Pipeline Value</div>
+                    <div class="summary-value">${formatCurrency(totalValue)}</div>
+                </div>
+            `;
+        }
+
+        function renderFilterButtons() {
+            const statuses = ['ALL', 'NEW', 'BID', 'WON', 'LOST'];
+            document.getElementById('filterButtons').innerHTML = statuses.map(status => `
+                <button class="filter-btn ${status === currentFilter ? 'active' : ''}" onclick="setFilter('${status}')">${status}</button>
+            `).join('');
+        }
+
+        function setFilter(status) {
+            currentFilter = status;
+            renderFilterButtons();
+            renderOpportunities();
+        }
+
+        function renderOpportunities() {
+            const filtered = currentFilter === 'ALL'
+                ? opportunities
+                : opportunities.filter(item => item.status === currentFilter);
+
+            const sorted = filtered
+                .map(item => ({ ...item, score: scoreOpportunity(item) }))
+                .sort((a, b) => b.score - a.score);
+
+            if (sorted.length === 0) {
+                document.getElementById('opportunitiesList').innerHTML = '<div class="empty-state">No opportunities in this category</div>';
+                return;
+            }
+
+            document.getElementById('opportunitiesList').innerHTML = sorted.map(item => `
+                <div class="opportunity-card">
+                    <div style="display: flex; justify-content: space-between; align-items: start; gap: 10px;">
+                        <div style="flex: 1;">
+                            <div class="card-title">${item.project_client}</div>
+                            <div class="card-platform">📍 ${item.platform}</div>
+                            <div class="card-requirement">${item.requirement}</div>
+                            <div class="card-details">
+                                <div class="detail-item">
+                                    <div class="detail-label">Payment</div>
+                                    <div class="detail-value">${formatCurrency(item.payment)}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Time</div>
+                                    <div class="detail-value">${item.estimated_days} days</div>
+                                </div>
+                            </div>
+                            <span class="status-badge status-${item.status.toLowerCase()}">${item.status}</span>
+                        </div>
+                        <div class="score-circle">${item.score}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAddForm() {
+            const form = document.getElementById('addForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function addNewOpportunity() {
+            const client = document.getElementById('newClient').value.trim();
+            const platform = document.getElementById('newPlatform').value.trim();
+            const requirement = document.getElementById('newRequirement').value.trim();
+            const payment = Number(document.getElementById('newPayment').value) || 0;
+            const days = Number(document.getElementById('newDays').value) || 7;
+
+            if (!client || !platform || !requirement) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            opportunities.unshift({
+                project_client: client,
+                platform: platform,
+                requirement: requirement,
+                payment: payment,
+                estimated_days: days,
+                status: 'NEW',
+            });
+
+            saveOpportunities();
+            document.getElementById('addForm').style.display = 'none';
+            document.getElementById('newClient').value = '';
+            document.getElementById('newPlatform').value = '';
+            document.getElementById('newRequirement').value = '';
+            document.getElementById('newPayment').value = '25000';
+            document.getElementById('newDays').value = '7';
+            renderAll();
+        }
+
+        function renderAll() {
+            renderSummary();
+            renderFilterButtons();
+            renderOpportunities();
+        }
+
+        renderAll();
+    </script>
+</body>
 </html>
