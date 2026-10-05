@@ -1,61 +1,49 @@
 # Money Opportunity Hunter (MOH)
 
-A lightweight autonomous agent for finding small, legitimate, paid opportunities worldwide that match Deepak Sonavane's practical business and research capabilities.
+This is the beginner-friendly browser version of the Money Opportunity Hunter app.
 
-## Objective
+## What it does
 
-Find projects that can realistically be completed in 1–15 working days, pay ₹10,000–₹1,00,000+ (or equivalent), and require business thinking, market research, commercial analysis, customer discovery, vendor research, feasibility studies, territory mapping, project planning, documentation, or implementation planning.
+- shows a simple dashboard of opportunities
+- ranks them by best fit and value
+- lets you add new opportunities manually
+- shows recommended bid prices
+- filters by status (NEW / BID / WON / LOST)
+- works in a normal browser
 
-## Principles
+## How to run
 
-- Search first, then filter, then score
-- Prioritize quick-win work over long-term noise
-- Reject low-value and scam-like jobs
-- Rank the best 10 first
-- Keep the system modular and easy to extend
+### Option 1: Open directly in browser
 
-## MVP workflow
+- double-click `index.html`
+- or right-click and choose "Open with Chrome/Edge"
 
-1. Search available opportunities
-2. Normalize/extract them
-3. Reject junk, scams, and generic work
-4. Score with fit/pay/time/credibility/win probability
-5. Present a ranked dashboard
+### Option 2: Run local server
 
-## Folder structure
+```bash
+python serve.py
+```
+
+Then open:
 
 ```text
-moh/
-  __init__.py
-  models.py
-  sources.py
-  filters.py
-  scorer.py
-  dashboard.py
-  runner.py
-requirements.txt
-README.md
+http://localhost:8000
 ```
 
-## Install
+## Important
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+This version is intentionally simple and easy to use. You do not need to understand coding to use it.
 
-## Run
+You can:
+- add a new opportunity manually
+- change its payment and days
+- see its score automatically
+- sort and review top opportunities
+- use it as a simple workbook for weekly income hunting
 
-```bash
-python -m moh.runner
-```
+## Files in this app
 
-## Output
-
-- Terminal dashboard showing the best opportunities first
-- CSV export: `moh_dashboard.csv`
-
-## Notes
-
-This is intentionally lightweight and easy to extend with new sources later. The first version focuses on a minimal but useful pipeline: search → extract → filter → score → dashboard.
+- `index.html` — main page
+- `styles.css` — design and layout
+- `app.js` — scoring and dashboard logic
+- `serve.py` — simple local web server

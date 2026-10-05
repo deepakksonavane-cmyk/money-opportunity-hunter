@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Money Opportunity Hunter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AUTONOMOUS INCOME HUNTER</p>
+          <h1>Money Opportunity Hunter</h1>
+        </div>
+        <div class="status-pill">Best 10 first</div>
+      </header>
+
+      <section class="cards" id="summaryCards"></section>
+
+      <section class="panel">
+        <h2>Add an opportunity</h2>
+        <form id="opportunityForm">
+          <div class="form-grid">
+            <label>
+              Project / Client
+              <input name="project_client" type="text" value="Local Business Expansion" required />
+            </label>
+            <label>
+              Platform / Source
+              <input name="platform" type="text" value="Upwork" required />
+            </label>
+            <label>
+              Expected payment (₹)
+              <input name="payment" type="number" value="35000" required />
+            </label>
+            <label>
+              Estimated days
+              <input name="estimated_days" type="number" value="7" required />
+            </label>
+            <label>
+              Deadline
+              <input name="deadline" type="text" value="Within 3 days" />
+            </label>
+            <label>
+              Status
+              <select name="status">
+                <option>NEW</option>
+                <option>BID</option>
+                <option>WON</option>
+                <option>LOST</option>
+              </select>
+            </label>
+            <label class="full-width">
+              Exact requirement
+              <textarea name="requirement" rows="3" required>Research 3 target markets, build territory map, identify buyer segments, and prepare commercial feasibility summary.</textarea>
+            </label>
+            <label class="full-width">
+              Why Deepak fits
+              <textarea name="why_fit" rows="2">Strong in market research, territory mapping, commercial feasibility, and opportunity intelligence.</textarea>
+            </label>
+            <label class="full-width">
+              Proposal / application URL
+              <input name="application_url" type="url" value="https://example.com" />
+            </label>
+          </div>
+          <div class="actions">
+            <button type="submit">Add to dashboard</button>
+            <button type="button" class="secondary" id="resetBtn">Reset sample data</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="toolbar">
+          <h2>Opportunity dashboard</h2>
+          <select id="statusFilter">
+            <option value="ALL">All statuses</option>
+            <option value="NEW">NEW</option>
+            <option value="BID">BID</option>
+            <option value="WON">WON</option>
+            <option value="LOST">LOST</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Project / Client</th>
+                <th>Platform</th>
+                <th>Payment</th>
+                <th>Days</th>
+                <th>Fit</th>
+                <th>Status</th>
+                <th>Recommended Bid</th>
+                <th>Deadline</th>
+                <th>URL</th>
+              </tr>
+            </thead>
+            <tbody id="opportunityTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
